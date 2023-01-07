@@ -6,7 +6,7 @@ function output = normalizer(I, type, range)
     else
         output = I;
         for i = 1:type
-            output(:,:,i) =  rescale(I(:,:,i), m, M);
+            output(:, :, i) =  rescale(I(:, :, i), m, M);
         end
     end
 end

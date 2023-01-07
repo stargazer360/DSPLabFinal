@@ -2,25 +2,26 @@ close all
 clear all
 clc
 %% load 'Im.jpg'
-frame = imread('3047_3147\Raw\T_S03047.jpg');
+frame = imread('superFish.jpg');
 frame_N = im2single(frame);
-frame_N = imresize(frame_N, 0.1);
+frame_N = imresize(frame_N, 1);
 %% Variables
 alpha = [2, 1];
-w_type = 2;
-gamma = 5;
+w_type = 1;
+gamma = 2;
 s_type = 1;
-sigma = 30;
-n_x_sigma = 10;
+sigma = 10;     % 30
+n_x_sigma = 10; % 10
 delta = 0.1;
 level = 3;
 %% White balance
 tic
-I = white_balance(frame_N, alpha, 2);
+I = white_balance(frame_N, alpha, w_type);
 %% Gamma correction
 input1 = gamma_correct(I, gamma);
 %% Sharpen image
-g = fspecial('gaussian', max(1, floor(2 * n_x_sigma * sigma)), sigma); % Gaussien Filter: filter size 2*n_x_sigma*sigma
+% g = fspecial('gaussian', max(1, floor(2 * n_x_sigma * sigma)), sigma); % Gaussien Filter: filter size 2*n_x_sigma*sigma
+g = fspecial('gaussian', max(1, 2 * ceil(2 * sigma) + 1), sigma);
 I_g = imfilter(I, g, "replicate", "same");
 input2 = (I + normalizer(I - I_g, 1, [0, 1]))/2;
 %% Laplacian
@@ -30,8 +31,8 @@ l2 = laplacian(input2);
 sal1 = saliency(input1);
 sal2 = saliency(input2);
 % saturation
-sat1 = saturation(input1);
-sat2 = saturation(input2);
+sat1 = saturation(input1, s_type);
+sat2 = saturation(input2, s_type);
 % Combine map
 W1 = l1+sal1+sat1;
 W2 = l2+sal2+sat2;
