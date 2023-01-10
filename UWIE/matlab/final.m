@@ -2,13 +2,13 @@ close all
 clear all
 clc
 %% load 'Im.jpg'
-frame = imread('superFish.jpg');
+frame = imread('error.jpg');
 frame_N = im2single(frame);
 frame_N = imresize(frame_N, 1);
 %% Variables
 alpha = [2, 1];
-w_type = 1;
-gamma = 2;
+w_type = 2;
+gamma = 1.5;
 s_type = 1;
 sigma = 10;     % 30
 n_x_sigma = 10; % 10
@@ -64,6 +64,7 @@ toc
 %% Display
 close all
 show_image(frame_N, 0);
-show_image(I, 0);
-show_image(R, 0);
+% show_image(I, 0);
+% show_image(R, 0);
 show_image(result, 0);
+imwrite(result, 'out.jpg')
