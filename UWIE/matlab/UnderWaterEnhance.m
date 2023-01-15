@@ -55,5 +55,10 @@ function output = UnderWaterEnhance(image)
         result = result + imresize(R_P{i}, [i_size(1) i_size(2)]);
     end
 
-    output = result;
+    sigma = 20;
+    g = fspecial('gaussian', max(1, 2 * ceil(2 * sigma) + 1), sigma);
+    temp = result - 0.4 * imfilter(result, g, "replicate", "same");
+    temp = normalizer(temp, 1, [0, 1]);
+
+    output = temp;
     

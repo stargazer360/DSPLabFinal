@@ -1,8 +1,8 @@
 
-% dataDir = "C:\Course\DSPFinalProject\DeepFishSet\DeepFishDataSetMod\Localization\images\empty\";
-dataDir = "C:\Course\DSPFinalProject\DeepFishSet\DeepFishDataSetMod\Localization\images\valid\";
-% dataDir = "C:\Course\DSPFinalProject\DeepFishSet\DeepFishDataSetMod\Segmentation\images\empty";
-% dataDir = "C:\Course\DSPFinalProject\DeepFishSet\DeepFishDataSetMod\Segmentation\images\valid";
+% dataDir = "C:\Course\DSPFinalProject\DeepFishSet\DeepFishDataSetModV2\Localization\images\empty\";
+% dataDir = "C:\Course\DSPFinalProject\DeepFishSet\DeepFishDataSetModV2\Localization\images\valid\";
+% dataDir = "C:\Course\DSPFinalProject\DeepFishSet\DeepFishDataSetModV2\Segmentation\images\empty\";
+dataDir = "C:\Course\DSPFinalProject\DeepFishSet\DeepFishDataSetModV2\Segmentation\images\valid\";
 
 lis = dir(dataDir);
 len = length(lis);
