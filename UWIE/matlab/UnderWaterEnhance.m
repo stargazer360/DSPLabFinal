@@ -1,12 +1,4 @@
-function output = UnderWaterEnhance(image)
-%     alpha = [2, 1];     % white balance parameter
-%     w_type = 2;         % white balance type
-%     gamma = 2;          % gamma correction
-%     s_type = 1;         % saturation type
-%     sigma = 10;         % sigma of gaussian filter
-%     n_x_sigma = 10;     % pyramid parameter
-%     delta = 0.1;        % small num to avoid div 0
-%     level = 3;          % pyramid level
+function output = UnderWaterEnhance(image, postCompensation)
 
     alpha = [2, 1];     % white balance parameter
     w_type = 2;         % white balance type
@@ -55,10 +47,11 @@ function output = UnderWaterEnhance(image)
         result = result + imresize(R_P{i}, [i_size(1) i_size(2)]);
     end
 
-    sigma = 20;
-    g = fspecial('gaussian', max(1, 2 * ceil(2 * sigma) + 1), sigma);
-    temp = result - 0.4 * imfilter(result, g, "replicate", "same");
-    temp = normalizer(temp, 1, [0, 1]);
-
-    output = temp;
+    if postCompensation
+        result = abs(result);
+        result(result > 1) = 1;
+        output = normalizer(result, 1, [0, 1]);
+    else
+        output = result;
+    end
     

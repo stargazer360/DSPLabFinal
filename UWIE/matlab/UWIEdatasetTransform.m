@@ -1,18 +1,18 @@
-
+clc;
+clear all;
 % dataDir = "C:\Course\DSPFinalProject\DeepFishSet\DeepFishDataSetModV2\Localization\images\empty\";
 % dataDir = "C:\Course\DSPFinalProject\DeepFishSet\DeepFishDataSetModV2\Localization\images\valid\";
 % dataDir = "C:\Course\DSPFinalProject\DeepFishSet\DeepFishDataSetModV2\Segmentation\images\empty\";
 dataDir = "C:\Course\DSPFinalProject\DeepFishSet\DeepFishDataSetModV2\Segmentation\images\valid\";
-
-lis = dir(dataDir);
+lis = dir(rawDir);
 len = length(lis);
 checkPoint = 0;
-i = 0;
+A = ones(len, 3);
 for i = 1:len
     if not(lis(i).isdir)
         fileName = dataDir + lis(i).name;
         image = imread(fileName);
-        imageMod = UnderWaterEnhance(image);
+        imageMod = UnderWaterEnhance(image, 1);
         imwrite(imageMod, fileName);
         if (i > checkPoint)
             fprintf("Progress %g\n", i / len);
@@ -20,4 +20,3 @@ for i = 1:len
         end
     end
 end
-

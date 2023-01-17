@@ -2,7 +2,7 @@ close all
 clear all
 clc
 %% load 'Im.jpg'
-frame = imread('test13.jpg');
+frame = imread('Im.jpg');
 frame_N = im2single(frame);
 frame_N = imresize(frame_N, 1);
 %% Variables
@@ -64,15 +64,15 @@ toc
 %% Display
 close all
 show_image(frame_N, 0);
-% show_image(I, 0);
-% show_image(R, 0);
 show_image(result, 0);
 imwrite(result, 'out1.jpg')
 
+
 %% increase contrast
+
 sigma = 20;
 g = fspecial('gaussian', max(1, 2 * ceil(2 * sigma) + 1), sigma);
 temp = result - 0.4 * imfilter(result, g, "replicate", "same");
-temp = normalizer(temp, 1, [0, 1]);
-show_image(temp, 0);
-imwrite(temp, 'out2.jpg')
+result = normalizer((temp + result) / 2, 1, [0, 1]);
+show_image(result, 0);
+imwrite(result, 'out2.jpg')
